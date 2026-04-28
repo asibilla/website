@@ -24,7 +24,7 @@ jobs:
       - aws-cli/setup:
           role_arn: $AWS_ROLE_ARN
           region: $AWS_REGION
-      - aws-s3/sync:
+      - aws-cli/sync:
           from: out
           to: "s3://${AWS_S3_BUCKET_NAME}"
           arguments: |
