@@ -1,0 +1,8 @@
+HTTP/2 401 
+date: Thu, 21 May 2026 13:47:56 GMT
+content-type: application/json
+content-length: 26
+x-amzn-requestid: 57b1a059-dab7-42d4-ad07-cab1d66d657d
+x-amzn-errortype: UnauthorizedException
+x-amz-apigw-id: dt76DFkfoAMEPOQ=
+

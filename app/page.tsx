@@ -1,21 +1,34 @@
-import Image from "next/image";
+'use client';
+import { useEffect, useState } from 'react';
+
+import { getArticle } from '@/api';
+import type { GetArticleResponse } from '@/types';
+
 
 export default function Home() {
+  const [content, setContent] = useState<GetArticleResponse | null>(null);
+  useEffect(() => {
+    const fetchContent = async () => {
+      const content = await getArticle({ type: 'homepage' });
+      console.log(content);
+      if ('title' in content && 'body' in content) {
+        setContent(content);
+      }
+    };
+
+    fetchContent();
+  }, [])
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
+    <div>
+      <main>
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            Hello World 2!
-          </h1>
+          {content && (
+            <>
+              <h1>{content.title}</h1>
+              <div>{content.body}</div>
+            </>
+          )}
         </div>
       </main>
     </div>
