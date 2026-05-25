@@ -4,13 +4,13 @@ export type GetArticleParams = {
 };
 
 export type GetArticleError = {
-    message: string;
-    raw: Error;
+  message: string;
+  raw: Error;
 };
 
 export type GetArticleErrorResponse = {
-    error: Error;
-}
+  error: Error;
+};
 
 export type GetArticleResponse = {
   body: string;

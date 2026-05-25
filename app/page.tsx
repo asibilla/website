@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { getArticle } from '@/api';
 import type { GetArticleResponse } from '@/types';
 
-
 export default function Home() {
   const [content, setContent] = useState<GetArticleResponse | null>(null);
   useEffect(() => {
@@ -17,7 +16,7 @@ export default function Home() {
     };
 
     fetchContent();
-  }, [])
+  }, []);
 
   return (
     <div>
