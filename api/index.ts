@@ -1,5 +1,6 @@
 import { API_URL, GET_ARTICLE_PATH } from '@/constants';
 import type {
+  GetArticleContentItem,
   GetArticleParams,
   GetArticleResponse,
   GetArticleError,
@@ -23,7 +24,7 @@ const createQueryString = (params: GetArticleParams) => {
 
 export const getArticle = async (
   params: GetArticleParams
-): Promise<GetArticleResponse | GetArticleError> => {
+): Promise<GetArticleContentItem[] | GetArticleError> => {
   const { id = '', type = '' } = params;
   try {
     const response = await fetch(
@@ -42,10 +43,14 @@ export const getArticle = async (
 
     const data: GetArticleResponse | GetArticleErrorResponse =
       await response.json();
-    if ('error' in data) {
-      throw data.error;
+    if ('error' in data || !('response' in data)) {
+      throw data.error ?? new Error('Failed to fetch article');
     }
-    return data;
+    return data.response.map(({ 'article-id': articleId, content }) => ({
+      articleId,
+      body: content?.body ?? '',
+      title: content?.title ?? '',
+    })) as GetArticleContentItem[];
   } catch (error) {
     return {
       message: 'Failed to fetch article',

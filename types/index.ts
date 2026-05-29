@@ -8,11 +8,25 @@ export type GetArticleError = {
   raw: Error;
 };
 
+export type GetArticleContentItem = {
+  articleId: string;
+  body: string;
+  title: string;
+};
+
 export type GetArticleErrorResponse = {
   error: Error;
 };
 
+export type GetArticleResponseItem = {
+  'article-id': string;
+  'article-type': string;
+  content: {
+    body: string;
+    title: string;
+  };
+};
+
 export type GetArticleResponse = {
-  body: string;
-  title: string;
+  response: GetArticleResponseItem[];
 };
