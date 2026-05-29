@@ -10,7 +10,6 @@ export default function Home() {
     const fetchContent = async () => {
       const articleData = await getArticle({ type: 'homepage' });
       if (!('error' in articleData)) {
-        console.log(articleData);
         setContent(articleData as GetArticleContentItem[]);
       }
     };
