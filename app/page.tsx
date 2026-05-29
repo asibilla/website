@@ -1,7 +1,9 @@
 'use client';
+import { Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import { getArticle } from '@/api';
+import ContentContainer from '@/components/ContentContainer';
 import type { GetArticleContentItem } from '@/types';
 
 export default function Home() {
@@ -20,15 +22,15 @@ export default function Home() {
   return (
     <div>
       <main>
-        <div>
+        <ContentContainer>
           {content &&
             content.map(({ articleId, body, title }) => (
               <div key={articleId}>
-                <h1>{title}</h1>
-                <div>{body}</div>
+                <Typography variant="h1">{title}</Typography>
+                <Typography variant="body1">{body}</Typography>
               </div>
             ))}
-        </div>
+        </ContentContainer>
       </main>
     </div>
   );
