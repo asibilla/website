@@ -12,9 +12,11 @@ export const AppContext = createContext<AppContextType>({
   articleTypes: [],
   error: null,
   homepageContent: null,
+  pageTitle: '',
   setArticleTypes: noop,
   setError: noop,
   setHomepageContent: noop,
+  setPageTitle: noop,
 });
 
 export const AppContextProvider: FC<{ children: React.ReactNode }> = ({
@@ -26,6 +28,7 @@ export const AppContextProvider: FC<{ children: React.ReactNode }> = ({
   );
   const [homepageContent, setHomepageContent] =
     useState<GetArticleContentItem | null>(null);
+  const [pageTitle, setPageTitle] = useState<string>('');
 
   return (
     <AppContext.Provider
@@ -33,9 +36,11 @@ export const AppContextProvider: FC<{ children: React.ReactNode }> = ({
         articleTypes,
         error,
         homepageContent,
+        pageTitle,
         setArticleTypes,
         setError,
         setHomepageContent,
+        setPageTitle,
       }}
     >
       {children}

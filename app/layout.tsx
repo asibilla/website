@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import { AppContextProvider } from '@/components/AppContext';
+import Header from '@/components/Header';
 import ThemeRegistry from '@/components/ThemeRegistry';
 
 const inter = Inter({
@@ -24,7 +25,10 @@ export default function RootLayout({
     <html lang="en" className={inter.variable} style={{ colorScheme: 'dark' }}>
       <body>
         <AppContextProvider>
-          <ThemeRegistry>{children}</ThemeRegistry>
+          <ThemeRegistry>
+            <Header />
+            {children}
+          </ThemeRegistry>
         </AppContextProvider>
       </body>
     </html>

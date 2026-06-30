@@ -2,9 +2,11 @@ export type AppContextType = {
   articleTypes: ReferenceDataResponseItem[];
   error: Error | null;
   homepageContent: GetArticleContentItem | null;
+  pageTitle: string;
   setArticleTypes: (articleTypes: ReferenceDataResponseItem[]) => void;
   setError: (error: Error | null) => void;
   setHomepageContent: (homepageContent: GetArticleContentItem | null) => void;
+  setPageTitle: (pageTitle: string) => void;
 };
 
 export type GetArticleParams = {

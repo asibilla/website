@@ -9,8 +9,11 @@ import SafeHtmlComponent from '@/components/SafeHtml';
 import { HOMEPAGE_ARTICLE_ID } from '@/constants';
 import type { GetArticleContentItem } from '@/types';
 
+const PAGE_TITLE = 'Home';
+
 export default function Home() {
-  const { homepageContent, setHomepageContent } = useContext(AppContext);
+  const { homepageContent, pageTitle, setHomepageContent, setPageTitle } =
+    useContext(AppContext);
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -26,6 +29,11 @@ export default function Home() {
 
     fetchContent();
   }, [setHomepageContent]);
+
+  useEffect(() => {
+    if (pageTitle === PAGE_TITLE) return;
+    setPageTitle('Home');
+  }, [pageTitle, setPageTitle]);
 
   return (
     <div>
