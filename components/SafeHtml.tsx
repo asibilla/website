@@ -7,6 +7,8 @@ const SafeHtmlComponent: FC<{ dirtyHtml: string }> = ({ dirtyHtml }) => {
       'b',
       'br',
       'em',
+      'h1',
+      'h2',
       'i',
       'li',
       'ol',

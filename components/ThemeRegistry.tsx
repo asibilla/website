@@ -4,6 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v16-appRouter';
 
+import { AppContextProvider } from '@/components/AppContext';
 import { theme } from '@/theme';
 
 export default function ThemeRegistry({
@@ -15,7 +16,7 @@ export default function ThemeRegistry({
     <AppRouterCacheProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {children}
+        <AppContextProvider>{children}</AppContextProvider>
       </ThemeProvider>
     </AppRouterCacheProvider>
   );

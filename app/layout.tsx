@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
+import { AppContextProvider } from '@/components/AppContext';
 import ThemeRegistry from '@/components/ThemeRegistry';
 
 const inter = Inter({
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable} style={{ colorScheme: 'dark' }}>
       <body>
-        <ThemeRegistry>{children}</ThemeRegistry>
+        <AppContextProvider>
+          <ThemeRegistry>{children}</ThemeRegistry>
+        </AppContextProvider>
       </body>
     </html>
   );

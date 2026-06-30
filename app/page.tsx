@@ -1,39 +1,44 @@
 'use client';
-import { Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { CircularProgress, Typography } from '@mui/material';
+import { useContext, useEffect } from 'react';
 
 import { getArticle } from '@/api';
+import { AppContext } from '@/components/AppContext';
 import ContentContainer from '@/components/ContentContainer';
 import SafeHtmlComponent from '@/components/SafeHtml';
+import { HOMEPAGE_ARTICLE_ID } from '@/constants';
 import type { GetArticleContentItem } from '@/types';
 
 export default function Home() {
-  const [content, setContent] = useState<GetArticleContentItem[] | null>(null);
+  const { homepageContent, setHomepageContent } = useContext(AppContext);
+
   useEffect(() => {
     const fetchContent = async () => {
-      const articleData = await getArticle({
-        id: '5bfd113b-1cdb-4613-9c34-fc4f89e1e8fc',
+      const { data, error } = await getArticle({
+        id: HOMEPAGE_ARTICLE_ID,
         type: 'homepage',
       });
-      if (!('error' in articleData)) {
-        setContent(articleData as GetArticleContentItem[]);
+
+      if (!error) {
+        setHomepageContent(data?.[0] as GetArticleContentItem);
       }
     };
 
     fetchContent();
-  }, []);
+  }, [setHomepageContent]);
 
   return (
     <div>
       <main>
         <ContentContainer>
-          {content &&
-            content.map(({ articleId, body, title }) => (
-              <div key={articleId}>
-                <Typography variant="h1">{title}</Typography>
-                <SafeHtmlComponent dirtyHtml={body} />
-              </div>
-            ))}
+          {homepageContent ? (
+            <div>
+              <Typography variant="h1">{homepageContent.title}</Typography>
+              <SafeHtmlComponent dirtyHtml={homepageContent.body} />
+            </div>
+          ) : (
+            <CircularProgress />
+          )}
         </ContentContainer>
       </main>
     </div>
