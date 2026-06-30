@@ -6,14 +6,17 @@ import { useContext } from 'react';
 import { AppContext } from './AppContext';
 import HideOnScroll from './HideOnScroll';
 import HomeButton from './HomeButton';
+import NavigationMenu from './NavigationMenu';
 
-const HeaderContainer = styled('header')(({ theme }) => ({
-  alignItems: 'center',
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
-  display: 'flex',
+}));
+
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   justifyContent: 'space-between',
-  height: '64px',
+  minHeight: theme.spacing(8),
   padding: theme.spacing(2),
+  width: '100%',
 }));
 
 const LeftSideContainer = styled('div')(({ theme }) => ({
@@ -27,25 +30,33 @@ const PageTitleContainer = styled('div')(({ theme }) => ({
   paddingLeft: theme.spacing(2),
 }));
 
+const RightSideContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(2),
+  marginLeft: 'auto',
+}));
+
 const Header = () => {
   const { pageTitle } = useContext(AppContext);
 
   return (
     <HideOnScroll>
-      <AppBar position="fixed">
-        <HeaderContainer>
-          <Toolbar>
-            <LeftSideContainer>
-              <HomeButton />
-              <PageTitleContainer>
-                <Typography variant="h3">
-                  <span>{pageTitle}</span>
-                </Typography>
-              </PageTitleContainer>
-            </LeftSideContainer>
-          </Toolbar>
-        </HeaderContainer>
-      </AppBar>
+      <StyledAppBar position="fixed">
+        <StyledToolbar>
+          <LeftSideContainer>
+            <HomeButton />
+            <PageTitleContainer>
+              <Typography variant="h3">
+                <span>{pageTitle}</span>
+              </Typography>
+            </PageTitleContainer>
+          </LeftSideContainer>
+          <RightSideContainer>
+            <NavigationMenu />
+          </RightSideContainer>
+        </StyledToolbar>
+      </StyledAppBar>
     </HideOnScroll>
   );
 };
