@@ -1,13 +1,14 @@
 'use client';
+import { CircularProgress } from '@mui/material';
 import { useSearchParams } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { Suspense, useCallback, useState } from 'react';
 
 import LoadContent from '@/components/LoadContent';
 import type { GetArticleContentItem } from '@/types';
 
 const PAGE_TITLE = 'Articles';
 
-export default function Article() {
+function ArticleContent() {
   const [content, setContent] = useState<GetArticleContentItem | null>(null);
   const searchParams = useSearchParams();
   const articleId = searchParams.get('id');
@@ -28,5 +29,26 @@ export default function Article() {
       pageName={PAGE_TITLE}
       setContent={setContentCallback}
     />
+  );
+}
+
+export default function Article() {
+  return (
+    <Suspense
+      fallback={
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '75vh',
+          }}
+        >
+          <CircularProgress />
+        </div>
+      }
+    >
+      <ArticleContent />
+    </Suspense>
   );
 }
