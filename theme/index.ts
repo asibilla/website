@@ -63,6 +63,7 @@ export const theme = createTheme({
       lineHeight: 1.4,
     },
     h4: {
+      color: colors.text.secondary,
       fontWeight: 600,
       fontSize: '1.125rem',
       lineHeight: 1.45,

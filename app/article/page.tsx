@@ -1,21 +1,32 @@
 'use client';
-import { useContext, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useCallback, useState } from 'react';
 
-import { AppContext } from '@/components/AppContext';
+import LoadContent from '@/components/LoadContent';
+import type { GetArticleContentItem } from '@/types';
 
 const PAGE_TITLE = 'Articles';
 
-export default function About() {
-  const { pageTitle, setPageTitle } = useContext(AppContext);
+export default function Article() {
+  const [content, setContent] = useState<GetArticleContentItem | null>(null);
+  const searchParams = useSearchParams();
+  const articleId = searchParams.get('id');
+  const articleType = searchParams.get('type');
 
-  useEffect(() => {
-    if (pageTitle === PAGE_TITLE) return;
-    setPageTitle(PAGE_TITLE);
-  }, [pageTitle, setPageTitle]);
+  const setContentCallback = useCallback(
+    (content: { [key: string]: GetArticleContentItem }) => {
+      setContent(content[articleId ?? ''] ?? null);
+    },
+    [articleId]
+  );
 
   return (
-    <div style={{ padding: '82px 20px 0 20px' }}>
-      <main>Coming soon...</main>
-    </div>
+    <LoadContent
+      articleId={articleId ?? ''}
+      articleType={articleType ?? ''}
+      content={content}
+      pageName={PAGE_TITLE}
+      setContent={setContentCallback}
+    />
   );
 }

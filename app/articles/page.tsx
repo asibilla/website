@@ -8,7 +8,7 @@ import type { GetArticleContentItem } from '@/types';
 
 const PAGE_TITLE = 'Articles';
 
-export default function Home() {
+export default function Articles() {
   const { setError } = useContext(AppContext);
   const [content, setContent] = useState<GetArticleContentItem[] | null>(null);
 

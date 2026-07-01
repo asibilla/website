@@ -54,10 +54,20 @@ const LoadContent: FC<{
   return (
     <div>
       <main>
-        <ContentContainer sx={{ paddingTop: '82px' }}>
+        <ContentContainer sx={{ paddingBottom: '50px', paddingTop: '92px' }}>
           {content ? (
             <div>
               <Typography variant="h1">{content.title}</Typography>
+              {content.subtitle && (
+                <Typography variant="h4">{content.subtitle}</Typography>
+              )}
+              {content.imageUrl && (
+                <img
+                  alt={content.title ?? ''}
+                  src={content.imageUrl}
+                  style={{ marginTop: '20px', width: '100%', height: 'auto' }}
+                />
+              )}
               <SafeHtmlComponent dirtyHtml={content.body} />
             </div>
           ) : (

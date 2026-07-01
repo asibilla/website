@@ -29,7 +29,7 @@ const LoadContent: FC<{
   return (
     <div>
       <main>
-        <ContentContainer sx={{ paddingTop: '92px' }}>
+        <ContentContainer sx={{ paddingBottom: '50px', paddingTop: '92px' }}>
           <Typography variant="h2">Select an Article</Typography>
           {content ? (
             content.map((item) => (
