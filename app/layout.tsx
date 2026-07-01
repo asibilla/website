@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import { AppContextProvider } from '@/components/AppContext';
+import ErrorAlert from '@/components/ErrorAlert';
 import Header from '@/components/Header';
 import ThemeRegistry from '@/components/ThemeRegistry';
 
@@ -28,6 +29,7 @@ export default function RootLayout({
           <ThemeRegistry>
             <Header />
             {children}
+            <ErrorAlert />
           </ThemeRegistry>
         </AppContextProvider>
       </body>

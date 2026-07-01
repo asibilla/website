@@ -1,11 +1,16 @@
 export type AppContextType = {
+  articleContent: {
+    [key: string]: GetArticleContentItem;
+  };
   articleTypes: ReferenceDataResponseItem[];
   error: Error | null;
-  homepageContent: GetArticleContentItem | null;
+  getArticleContent: (articleId: string) => GetArticleContentItem | null;
   pageTitle: string;
+  setArticleContent: (articleContent: {
+    [key: string]: GetArticleContentItem;
+  }) => void;
   setArticleTypes: (articleTypes: ReferenceDataResponseItem[]) => void;
   setError: (error: Error | null) => void;
-  setHomepageContent: (homepageContent: GetArticleContentItem | null) => void;
   setPageTitle: (pageTitle: string) => void;
 };
 

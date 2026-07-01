@@ -1,7 +1,7 @@
 'use client';
 import noop from 'lodash.noop';
 import type { FC } from 'react';
-import { createContext, useState } from 'react';
+import { createContext, useCallback, useState } from 'react';
 import type {
   AppContextType,
   GetArticleContentItem,
@@ -9,37 +9,55 @@ import type {
 } from '@/types';
 
 export const AppContext = createContext<AppContextType>({
+  articleContent: {},
   articleTypes: [],
   error: null,
-  homepageContent: null,
+  getArticleContent: () => null,
   pageTitle: '',
+  setArticleContent: noop,
   setArticleTypes: noop,
   setError: noop,
-  setHomepageContent: noop,
   setPageTitle: noop,
 });
 
 export const AppContextProvider: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [error, setError] = useState<Error | null>(null);
+  const [articles, setArticles] = useState<{
+    [key: string]: GetArticleContentItem;
+  }>({});
   const [articleTypes, setArticleTypes] = useState<ReferenceDataResponseItem[]>(
     []
   );
-  const [homepageContent, setHomepageContent] =
-    useState<GetArticleContentItem | null>(null);
+
+  const [error, setError] = useState<Error | null>(null);
   const [pageTitle, setPageTitle] = useState<string>('');
+
+  const getArticleContent = useCallback(
+    (articleId: string) => {
+      return articles[articleId] ?? null;
+    },
+    [articles]
+  );
+
+  const setArticleContent = useCallback(
+    (articleContent: { [key: string]: GetArticleContentItem }) => {
+      setArticles((prevArticles) => ({ ...prevArticles, ...articleContent }));
+    },
+    []
+  );
 
   return (
     <AppContext.Provider
       value={{
+        articleContent: articles,
         articleTypes,
         error,
-        homepageContent,
+        getArticleContent,
         pageTitle,
+        setArticleContent,
         setArticleTypes,
         setError,
-        setHomepageContent,
         setPageTitle,
       }}
     >

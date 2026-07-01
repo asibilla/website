@@ -21,9 +21,11 @@ const LoadContent: FC<{
   articleType: string;
   content: GetArticleContentItem | null;
   pageName: string;
-  setContent: (content: GetArticleContentItem | null) => void;
+  setContent: (articleContent: {
+    [key: string]: GetArticleContentItem;
+  }) => void;
 }> = ({ articleId, articleType, content, pageName, setContent }) => {
-  const { pageTitle, setPageTitle } = useContext(AppContext);
+  const { pageTitle, setPageTitle, setError } = useContext(AppContext);
 
   useEffect(() => {
     if (content) return;
@@ -35,12 +37,14 @@ const LoadContent: FC<{
       });
 
       if (!error) {
-        setContent(data?.[0] as GetArticleContentItem);
+        setContent({ [articleId]: data?.[0] as GetArticleContentItem });
+      } else {
+        setError(error as Error);
       }
     };
 
     fetchContent();
-  }, [articleId, articleType, content, setContent]);
+  }, [articleId, articleType, content, setContent, setError]);
 
   useEffect(() => {
     if (pageTitle === pageName) return;

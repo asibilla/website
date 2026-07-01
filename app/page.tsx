@@ -8,7 +8,7 @@ import { HOMEPAGE_ARTICLE_ID } from '@/constants';
 const PAGE_TITLE = 'Home';
 
 export default function Home() {
-  const { homepageContent, setHomepageContent } = useContext(AppContext);
+  const { getArticleContent, setArticleContent } = useContext(AppContext);
 
   return (
     <div>
@@ -16,9 +16,9 @@ export default function Home() {
         <LoadContent
           articleId={HOMEPAGE_ARTICLE_ID}
           articleType="homepage"
-          content={homepageContent}
+          content={getArticleContent(HOMEPAGE_ARTICLE_ID)}
           pageName={PAGE_TITLE}
-          setContent={setHomepageContent}
+          setContent={setArticleContent}
         />
       </main>
     </div>
