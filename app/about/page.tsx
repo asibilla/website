@@ -1,21 +1,26 @@
 'use client';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 import { AppContext } from '@/components/AppContext';
+import LoadContent from '@/components/LoadContent';
+import { ABOUT_ARTICLE_ID } from '@/constants';
 
-const PAGE_TITLE = 'About';
+const PAGE_TITLE = 'About Me';
 
 export default function About() {
-  const { pageTitle, setPageTitle } = useContext(AppContext);
-
-  useEffect(() => {
-    if (pageTitle === PAGE_TITLE) return;
-    setPageTitle(PAGE_TITLE);
-  }, [pageTitle, setPageTitle]);
+  const { getArticleContent, setArticleContent } = useContext(AppContext);
 
   return (
     <div>
-      <main>Coming soon...</main>
+      <main>
+        <LoadContent
+          articleId={ABOUT_ARTICLE_ID}
+          articleType="about"
+          content={getArticleContent(ABOUT_ARTICLE_ID)}
+          pageName={PAGE_TITLE}
+          setContent={setArticleContent}
+        />
+      </main>
     </div>
   );
 }
