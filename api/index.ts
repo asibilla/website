@@ -51,11 +51,19 @@ export const getArticle = async (
     }
     return {
       data: data.response.items.map(
-        ({ 'article-id': articleId, content, date, displayTitle }) => ({
+        ({
+          'article-id': articleId,
+          'article-type': articleType,
+          content,
+          date,
+          displayTitle,
+        }) => ({
           articleId,
+          articleType,
           body: content?.body ?? '',
           date,
           displayTitle,
+          imageUrl: content?.imageUrl ?? '',
           subtitle: content?.subtitle ?? '',
           title: content?.title ?? '',
         })

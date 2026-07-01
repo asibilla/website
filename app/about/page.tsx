@@ -11,16 +11,12 @@ export default function About() {
   const { getArticleContent, setArticleContent } = useContext(AppContext);
 
   return (
-    <div>
-      <main>
-        <LoadContent
-          articleId={ABOUT_ARTICLE_ID}
-          articleType="about"
-          content={getArticleContent(ABOUT_ARTICLE_ID)}
-          pageName={PAGE_TITLE}
-          setContent={setArticleContent}
-        />
-      </main>
-    </div>
+    <LoadContent
+      articleId={ABOUT_ARTICLE_ID}
+      articleType="about"
+      content={getArticleContent(ABOUT_ARTICLE_ID)}
+      pageName={PAGE_TITLE}
+      setContent={setArticleContent}
+    />
   );
 }

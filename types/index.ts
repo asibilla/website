@@ -21,9 +21,11 @@ export type GetArticleParams = {
 
 export type GetArticleContentItem = {
   articleId: string;
+  articleType: string;
   body: string;
   date: string;
   displayTitle: string;
+  imageUrl: string;
   subtitle: string;
   title: string;
 };
@@ -34,6 +36,7 @@ export type GetArticleResponseItem = {
   displayTitle: string;
   content?: {
     body: string;
+    imageUrl?: string;
     subtitle: string;
     title: string;
   };

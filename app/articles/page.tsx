@@ -1,21 +1,30 @@
 'use client';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
+import { getArticle } from '@/api';
 import { AppContext } from '@/components/AppContext';
+import LoadContentList from '@/components/LoadContentList';
+import type { GetArticleContentItem } from '@/types';
 
 const PAGE_TITLE = 'Articles';
 
-export default function About() {
-  const { pageTitle, setPageTitle } = useContext(AppContext);
+export default function Home() {
+  const { setError } = useContext(AppContext);
+  const [content, setContent] = useState<GetArticleContentItem[] | null>(null);
 
   useEffect(() => {
-    if (pageTitle === PAGE_TITLE) return;
-    setPageTitle(PAGE_TITLE);
-  }, [pageTitle, setPageTitle]);
+    const fetchContent = async () => {
+      const { data, error } = await getArticle({
+        type: 'articles',
+      });
+      if (!error) {
+        setContent(data as GetArticleContentItem[]);
+      } else {
+        setError(error as Error);
+      }
+    };
+    fetchContent();
+  }, [setError]);
 
-  return (
-    <div style={{ padding: '82px 20px 0 20px' }}>
-      <main>Coming soon...</main>
-    </div>
-  );
+  return <LoadContentList content={content} pageName={PAGE_TITLE} />;
 }
