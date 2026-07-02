@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 
 import { AppContextProvider } from '@/components/AppContext';
 import ErrorAlert from '@/components/ErrorAlert';
+import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import ThemeRegistry from '@/components/ThemeRegistry';
 
@@ -30,6 +31,7 @@ export default function RootLayout({
             <Header />
             {children}
             <ErrorAlert />
+            <Footer />
           </ThemeRegistry>
         </AppContextProvider>
       </body>

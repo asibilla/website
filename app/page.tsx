@@ -15,6 +15,7 @@ export default function Home() {
       articleId={HOMEPAGE_ARTICLE_ID}
       articleType="homepage"
       content={getArticleContent(HOMEPAGE_ARTICLE_ID)}
+      hideDate={true}
       pageName={PAGE_TITLE}
       setContent={setArticleContent}
     />

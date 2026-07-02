@@ -15,6 +15,7 @@ export default function About() {
       articleId={ABOUT_ARTICLE_ID}
       articleType="about"
       content={getArticleContent(ABOUT_ARTICLE_ID)}
+      hideDate={true}
       pageName={PAGE_TITLE}
       setContent={setArticleContent}
     />

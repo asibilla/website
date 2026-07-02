@@ -8,6 +8,7 @@ import type { FC } from 'react';
 import { AppContext } from '@/components/AppContext';
 import ContentContainer from '@/components/ContentContainer';
 import type { GetArticleContentItem } from '@/types';
+import { formatDate } from '@/utils';
 
 const StyledSpinnerWrapper = styled('div')(() => ({
   display: 'flex',
@@ -15,6 +16,16 @@ const StyledSpinnerWrapper = styled('div')(() => ({
   alignItems: 'center',
   height: '75vh',
 }));
+
+const StyledLineContainer = styled('div')(() => ({
+  alignItems: 'center',
+  display: 'flex',
+  fontWeight: 600,
+  justifyContent: 'space-between',
+  padding: '4px 0',
+  width: '100%',
+}));
+
 const LoadContent: FC<{
   content: GetArticleContentItem[] | null;
   pageName: string;
@@ -29,17 +40,28 @@ const LoadContent: FC<{
   return (
     <div>
       <main>
-        <ContentContainer sx={{ paddingBottom: '50px', paddingTop: '92px' }}>
-          <Typography variant="h2">Select an Article</Typography>
+        <ContentContainer
+          sx={{ minHeight: '85vh', paddingBottom: '50px', paddingTop: '92px' }}
+        >
+          <Typography variant="h2" sx={{ marginBottom: '8px' }}>
+            Select an Article
+          </Typography>
           {content ? (
             content.map((item) => (
-              <div key={item.articleId}>
-                <Link
-                  href={`/article/?id=${item.articleId}&type=${item.articleType}`}
-                >
-                  <Typography variant="body1">{item.displayTitle}</Typography>
-                </Link>
-              </div>
+              <StyledLineContainer key={item.articleId}>
+                <div key={item.articleId}>
+                  <Link
+                    href={`/article/?id=${item.articleId}&type=${item.articleType}`}
+                  >
+                    <Typography variant="body1">{item.displayTitle}</Typography>
+                  </Link>
+                </div>
+                <div>
+                  <Typography variant="body2">
+                    {formatDate(item.date)}
+                  </Typography>
+                </div>
+              </StyledLineContainer>
             ))
           ) : (
             <StyledSpinnerWrapper>

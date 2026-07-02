@@ -9,6 +9,7 @@ import { AppContext } from '@/components/AppContext';
 import ContentContainer from '@/components/ContentContainer';
 import SafeHtmlComponent from '@/components/SafeHtml';
 import type { GetArticleContentItem } from '@/types';
+import { formatDate } from '@/utils';
 
 const StyledSpinnerWrapper = styled('div')(() => ({
   display: 'flex',
@@ -16,15 +17,17 @@ const StyledSpinnerWrapper = styled('div')(() => ({
   alignItems: 'center',
   height: '75vh',
 }));
+
 const LoadContent: FC<{
   articleId: string;
   articleType: string;
   content: GetArticleContentItem | null;
+  hideDate?: boolean;
   pageName: string;
   setContent: (articleContent: {
     [key: string]: GetArticleContentItem;
   }) => void;
-}> = ({ articleId, articleType, content, pageName, setContent }) => {
+}> = ({ articleId, articleType, content, hideDate, pageName, setContent }) => {
   const { pageTitle, setPageTitle, setError } = useContext(AppContext);
 
   useEffect(() => {
@@ -58,8 +61,11 @@ const LoadContent: FC<{
           {content ? (
             <div>
               <Typography variant="h1">{content.title}</Typography>
-              {content.subtitle && (
-                <Typography variant="h4">{content.subtitle}</Typography>
+              {!hideDate && (
+                <Typography variant="h4">
+                  {content.subtitle && `${content.subtitle} | `}{' '}
+                  {formatDate(content.date)}
+                </Typography>
               )}
               {content.imageUrl && (
                 <img
