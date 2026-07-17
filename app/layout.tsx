@@ -14,8 +14,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'andysibilla.com - a website chalk full of poor writing',
-  description: '',
+  title: 'andysibilla.com',
+  description: 'Your premier source for poor writing.',
 };
 
 export default function RootLayout({

@@ -16,14 +16,12 @@ const StyledMenu = styled(Menu)(({ theme }) => ({
     paddingBottom: theme.spacing(4),
     paddingTop: theme.spacing(4),
   },
-  '& li': {
+  '& .MuiMenuItem-root': {
     justifyContent: 'center',
-    '& a': {
-      color: 'white',
-      textDecoration: 'none',
-      '&:hover': {
-        textDecoration: 'underline',
-      },
+    color: 'white',
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline',
     },
   },
 }));
@@ -67,14 +65,13 @@ export default function HamburgerMenu() {
         }}
       >
         {articleTypes.map((articleType: ReferenceDataResponseItem) => (
-          <MenuItem key={articleType.key} onClick={handleMenuClose}>
-            <Link
-              href={
-                articleType.key === 'homepage' ? '/' : `/${articleType.key}`
-              }
-            >
-              {articleType.label}
-            </Link>
+          <MenuItem
+            key={articleType.key}
+            component={Link}
+            href={articleType.key === 'homepage' ? '/' : `/${articleType.key}`}
+            onClick={handleMenuClose}
+          >
+            {articleType.label}
           </MenuItem>
         ))}
       </StyledMenu>
