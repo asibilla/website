@@ -4,7 +4,9 @@ const ContentContainer = styled('div')(({ theme }) => ({
   padding: theme.spacing(3, 4),
   margin: '0 auto',
   maxWidth: theme.breakpoints.values.md,
-  textAlign: 'justify',
+  '& p': {
+    textAlign: 'justify',
+  },
 }));
 
 export default ContentContainer;
