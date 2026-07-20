@@ -68,6 +68,12 @@ export const theme = createTheme({
       fontSize: '1.125rem',
       lineHeight: 1.45,
     },
+    h5: {
+      color: colors.text.secondary,
+      fontWeight: 600,
+      fontSize: '1rem',
+      lineHeight: 1.75,
+    },
     body1: {
       fontSize: '1rem',
       lineHeight: 1.75,
