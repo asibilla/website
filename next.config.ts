@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   output: 'export',
+  serverExternalPackages: ['isomorphic-dompurify'],
   trailingSlash: true,
 };
 

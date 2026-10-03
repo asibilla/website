@@ -11,8 +11,8 @@ theme. Production builds are deployed to Amazon S3.
 - [Next.js 16](https://nextjs.org) with the App Router
 - [React 19](https://react.dev) and TypeScript
 - [MUI v9](https://mui.com) with Emotion
-- [DOMPurify](https://github.com/cure53/DOMPurify) for article HTML
-  sanitization
+- [isomorphic-dompurify](https://github.com/kkomelin/isomorphic-dompurify)
+  for article HTML sanitization
 - Yarn
 
 ## Getting started
@@ -46,7 +46,7 @@ yarn format:check  # Check formatting without changing files
 
 | Path | Purpose |
 | --- | --- |
-| `app/` | App Router pages and root layout |
+| `app/` | App Router pages, root layout, `robots.ts`, and `sitemap.ts` |
 | `components/` | Shared UI, application shell, and content renderers |
 | `api/` | Article and reference-data fetch helpers |
 | `hooks/` | Shared React hooks |
@@ -63,6 +63,9 @@ and individual articles:
 - `/articles/`
 - `/article/?id=<article-id>&type=<article-type>`
 
+Build also emits `robots.txt` and `sitemap.xml` (home, about, and articles
+list only).
+
 ## Content architecture
 
 Article data is loaded from `https://api.andysibilla.com/api/get-article`.
@@ -70,11 +73,18 @@ Navigation labels and article types are loaded from
 `https://andysibilla.com/reference-data/articleTypes.json`.
 
 API article fields such as `article-id` and `article-type` are normalized to
-camelCase in `api/index.ts`. Fetched content is cached in the shared
-`AppContext`, and request errors are displayed through the global error alert.
+camelCase in `api/index.ts`.
+
+Home and About fetch their articles at build time so the content is baked into
+the static HTML. The articles list and individual article pages fetch on the
+client; client-fetched content is cached in `AppContext`, and request errors
+are displayed through the global error alert.
 
 Article bodies contain HTML from the API. Before rendering, the markup is
 sanitized by `components/SafeHtml.tsx` using a restricted DOMPurify allowlist.
+
+Pages also define Open Graph metadata (`og:title`, `og:description`, and
+related tags) for social link previews.
 
 ## Static export and deployment
 
@@ -83,6 +93,7 @@ sanitized by `components/SafeHtml.tsx` using a restricted DOMPurify allowlist.
 - `output: 'export'`
 - `trailingSlash: true`
 - unoptimized images for static hosting
+- `serverExternalPackages` for `isomorphic-dompurify`
 
 Running `yarn build` writes the site to `out/`. The AWS CodeBuild configuration
 in `buildspec.yml` installs dependencies, builds the site, and synchronizes
@@ -90,4 +101,6 @@ in `buildspec.yml` installs dependencies, builds the site, and synchronizes
 
 Because production uses static hosting, features that require a persistent
 Next.js server—such as dynamic server rendering or runtime route handlers—are
-not available without changing the deployment model.
+not available without changing the deployment model. Build-time data fetching
+in Server Components (used by Home and About) is supported and runs during
+`yarn build`.

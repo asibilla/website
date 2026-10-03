@@ -1,4 +1,4 @@
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 import type { FC } from 'react';
 
 const SafeHtmlComponent: FC<{ dirtyHtml: string }> = ({ dirtyHtml }) => {

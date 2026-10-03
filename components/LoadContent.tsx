@@ -1,15 +1,15 @@
 'use client';
-import { CircularProgress, Typography } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useContext, useEffect } from 'react';
 import type { FC } from 'react';
 
 import { getArticle } from '@/api';
+import ArticleContent from '@/components/ArticleContent';
 import { AppContext } from '@/components/AppContext';
 import ContentContainer from '@/components/ContentContainer';
-import SafeHtmlComponent from '@/components/SafeHtml';
+import SetPageTitle from '@/components/SetPageTitle';
 import type { GetArticleContentItem } from '@/types';
-import { formatDate } from '@/utils';
 
 const StyledSpinnerWrapper = styled('div')(() => ({
   display: 'flex',
@@ -28,7 +28,7 @@ const LoadContent: FC<{
     [key: string]: GetArticleContentItem;
   }) => void;
 }> = ({ articleId, articleType, content, hideDate, pageName, setContent }) => {
-  const { pageTitle, setPageTitle, setError } = useContext(AppContext);
+  const { setError } = useContext(AppContext);
 
   useEffect(() => {
     if (content) return;
@@ -49,41 +49,25 @@ const LoadContent: FC<{
     fetchContent();
   }, [articleId, articleType, content, setContent, setError]);
 
-  useEffect(() => {
-    if (pageTitle === pageName) return;
-    setPageTitle(pageName);
-  }, [pageTitle, pageName, setPageTitle]);
-
   return (
-    <div>
-      <main>
-        <ContentContainer sx={{ paddingBottom: '50px', paddingTop: '92px' }}>
-          {content ? (
-            <div>
-              <Typography variant="h1">{content.title}</Typography>
-              {!hideDate && (
-                <Typography variant="h4">
-                  {content.subtitle && `${content.subtitle} | `}{' '}
-                  {formatDate(content.date)}
-                </Typography>
-              )}
-              {content.imageUrl && (
-                <img
-                  alt={content.title ?? ''}
-                  src={content.imageUrl}
-                  style={{ marginTop: '20px', width: '100%', height: 'auto' }}
-                />
-              )}
-              <SafeHtmlComponent dirtyHtml={content.body} />
-            </div>
-          ) : (
-            <StyledSpinnerWrapper>
-              <CircularProgress />
-            </StyledSpinnerWrapper>
-          )}
-        </ContentContainer>
-      </main>
-    </div>
+    <>
+      <SetPageTitle pageName={pageName} />
+      {content ? (
+        <ArticleContent content={content} hideDate={hideDate} />
+      ) : (
+        <div>
+          <main>
+            <ContentContainer
+              sx={{ paddingBottom: '50px', paddingTop: '92px' }}
+            >
+              <StyledSpinnerWrapper>
+                <CircularProgress />
+              </StyledSpinnerWrapper>
+            </ContentContainer>
+          </main>
+        </div>
+      )}
+    </>
   );
 };
 
