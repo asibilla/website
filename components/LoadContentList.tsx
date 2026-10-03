@@ -53,11 +53,19 @@ const LoadContent: FC<{
                   <Link
                     href={`/article/?id=${item.articleId}&type=${item.articleType}`}
                   >
-                    <Typography variant="body1">{item.displayTitle}</Typography>
+                    <Typography
+                      sx={{ textAlign: 'left !important' }}
+                      variant="body1"
+                    >
+                      {item.displayTitle}
+                    </Typography>
                   </Link>
                 </div>
                 <div>
-                  <Typography variant="body2">
+                  <Typography
+                    sx={{ textAlign: 'right !important' }}
+                    variant="body2"
+                  >
                     {formatDate(item.date)}
                   </Typography>
                 </div>
