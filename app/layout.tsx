@@ -6,7 +6,7 @@ import ErrorAlert from '@/components/ErrorAlert';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import ThemeRegistry from '@/components/ThemeRegistry';
-import { ASSETS_URL } from '@/constants';
+import { ASSETS_URL, OG_IMAGE } from '@/constants';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,6 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: 'andysibilla.com',
     type: 'website',
+    images: [OG_IMAGE],
   },
 };
 

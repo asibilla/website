@@ -4,3 +4,9 @@ export const ASSETS_URL = 'https://andysibilla.com';
 export const GET_ARTICLE_PATH = '/api/get-article';
 export const GET_REFERENCE_DATA_PATH = '/reference-data';
 export const HOMEPAGE_ARTICLE_ID = '5bfd113b-1cdb-4613-9c34-fc4f89e1e8fc';
+export const OG_IMAGE = {
+  url: `${ASSETS_URL}/images/thumbnail.png`,
+  width: 648,
+  height: 624,
+  alt: 'andysibilla.com',
+};

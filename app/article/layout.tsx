@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 
+import { OG_IMAGE } from '@/constants';
+
 export const metadata: Metadata = {
   title: 'Articles',
   description: 'Articles by Andy Sibilla.',
@@ -9,6 +11,7 @@ export const metadata: Metadata = {
     url: '/article/',
     siteName: 'andysibilla.com',
     type: 'website',
+    images: [OG_IMAGE],
   },
 };
 

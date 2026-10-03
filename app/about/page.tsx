@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { getArticle } from '@/api';
 import ArticleContent from '@/components/ArticleContent';
 import SetPageTitle from '@/components/SetPageTitle';
-import { ABOUT_ARTICLE_ID } from '@/constants';
+import { ABOUT_ARTICLE_ID, OG_IMAGE } from '@/constants';
 import type { GetArticleContentItem } from '@/types';
 
 const PAGE_TITLE = 'About Me';
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     url: '/about/',
     siteName: 'andysibilla.com',
     type: 'website',
+    images: [OG_IMAGE],
   },
 };
 
